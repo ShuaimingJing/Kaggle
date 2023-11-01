@@ -38,8 +38,8 @@ class PredictionsFromData:
         }).reset_index()
        
         # get dummies for useful features and drop the irrelevant features
-        dummy_subscriptions = pd.get_dummies(aggregated_subscriptions, columns=['location', 'section', 'season'])
-        clean_subscriptions = dummy_subscriptions.drop(['multiple.subs', 'package', 'price.level'], axis=1)
+        dummy_subscriptions = pd.get_dummies(aggregated_subscriptions, columns=['location', 'section', 'season', 'price.level'])
+        clean_subscriptions = dummy_subscriptions.drop(['multiple.subs', 'package'], axis=1)
         self.replace_boolean_with_binary(clean_subscriptions)
 
         # merge the result dataframe with train and test sets, then fill the nah values with 0
@@ -79,4 +79,4 @@ predictor.data_processing()
 predictor.model_running()
 
 # Save the result as csv file
-predictor.save_predictions('test_with_predictions.csv')
+predictor.save_predictions('./test_with_predictions.csv')
